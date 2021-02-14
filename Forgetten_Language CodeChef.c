@@ -43,13 +43,7 @@ int main(void)
             scanf("%d",&L);getchar();
             char new_language[(5*L)+(L)];
             fgets(new_language,sizeof(new_language),stdin);
-            char new_language_array[6*L];
-            for (k = 0; k<((6*L)-1);k++)
-            {
-                new_language_array[k] = new_language[k];
-            }
-            new_language_array[(6*L)-1] = '\0';
-            compare_languages(dictionary,sizeof(dictionary),new_language_array,sizeof(new_language),ptr);
+            compare_languages(dictionary,sizeof(dictionary),new_language,sizeof(new_language),ptr);
         }
         for (k = 0; k<N; k++)
         {
@@ -63,7 +57,6 @@ int main(void)
             }
         }
         printf("\n");
-
     }
     return 0;
 }
