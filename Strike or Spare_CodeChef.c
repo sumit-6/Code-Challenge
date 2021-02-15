@@ -12,7 +12,6 @@ int main()
         int num = atoi(N_str),j = 0;
         if (num%2 == 0)
         {
-            //char result[(num/2)+2];
             for (j = 1; j<((num/2)+1); j++)
             {
                 result[j]='0';
@@ -22,7 +21,6 @@ int main()
         }
         else
         {
-            //char result[((num-1)/2)+2];
             for (j = 1; j<(((num-1)/2)+1); j++)
             {
                 result[j]='0';
