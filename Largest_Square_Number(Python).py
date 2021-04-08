@@ -1,22 +1,6 @@
-def its(c,k):
+def its(c,j,k):
     c = ''
-    index = 0
-    sum_ = 0
-    temp = k
-    digits = 0
-    while (temp != 0):
-        temp = temp // 10
-        digits = digits + 1
-    temp = k
-    while (temp != 0):
-        sum_ = sum_ + temp%10*(10**(digits-index-1))
-        temp = temp//10
-        index = index + 1
-    index = 0
-    while (sum_ != 0):
-        c = c + str(sum_%10)
-        sum_ = sum_//10
-        index = index + 1
+    c = str(j) + str(k)
     return(c)
         
 def arrange_lexicographically(string1,string2,index):
@@ -52,8 +36,8 @@ if __name__ == '__main__':
         for j in range(1,int(N**(0.5)) + 1):
             for k in range(1,int(N**(0.5)) + 1):
                 if (k*k == (N - j*j)):
-                    str1 = its(str1,j*10 + k)
-                    str2 = its(str2,k*10 + j)
+                    str1 = its(str1,j,k)
+                    str2 = its(str2,k,j)
                     strlist.append(str1)
                     strlist.append(str2)
                     index=index+2
