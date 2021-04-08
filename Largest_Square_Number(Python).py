@@ -42,12 +42,10 @@ if __name__ == '__main__':
                     strlist.append(str2)
                     index=index+2
         if ((str1 != zero) and (str2 != zero)):
-            k = 0
+            k = 1
+            max_ = strlist[0]
             while (k <= (index - 2)):
-                if (arrange_lexicographically(strlist[k],strlist[k+1],0) == 0):
+                if (arrange_lexicographically(strlist[k],max_,0) == 0):
                     max_ = strlist[k]
-                else:
-                    max_ = strlist[k+1]
                 k=k+1
             print(max_)
-        
