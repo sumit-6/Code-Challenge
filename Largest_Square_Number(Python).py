@@ -22,12 +22,12 @@ def its(c,k):
 def arrange_lexicographically(string1,string2,index):
     str1 = len(string1)
     str2 = len(string2)
-    if ((index == str1-1) and (index == str2-1)):
+    if ((index == str1) and (index == str2)):
         return 0
-    elif (index == str1-1):
+    elif (index == str1):
         string1=string1+'0'
         value = arrange_lexicographically(string1,string2,index+1)
-    elif (index == str2-1):
+    elif (index == str2):
         string2=string2+'0'
         value = arrange_lexicographically(string1,string2,index+1)
     else:
@@ -59,11 +59,11 @@ if __name__ == '__main__':
                     index=index+2
         if ((str1 != zero) and (str2 != zero)):
             k = 0
-            while (k < (index - 2)):
-                if (arrange_lexicographically(strlist[i],strlist[i+1],0) == 0):
-                    max_ = strlist[i]
+            while (k <= (index - 2)):
+                if (arrange_lexicographically(strlist[k],strlist[k+1],0) == 0):
+                    max_ = strlist[k]
                 else:
-                    max_ = strlist[i+1]
+                    max_ = strlist[k+1]
                 k=k+1
             print(max_)
         
