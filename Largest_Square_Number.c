@@ -104,7 +104,7 @@ int arrange_lexicographically(char* string1,char* string2,int index)
 
 int main()
 {
-    int ix = 0,iy = 0,flag = 0,count = 0;
+    int flag = 0,count = 0;
     char str1[100];
     char str2[100];
     char* add1;char* add2;
@@ -139,20 +139,7 @@ int main()
                 }
             }
         }
-        ix = 0;
-        while (ix < index)
-        {
-            temp = *(strlist + ix);
-            iy = 0;
-            while (*(temp + iy) != '\0')
-            {
-                printf("%c",*(temp + iy));
-                iy++;
-            }
-            ix++;
-            printf(" ");
-        }
-        printf("\n");
+        
         if (flag == 1)
         {
             *(strlist+index) = '\0';
