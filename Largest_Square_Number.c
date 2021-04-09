@@ -2,23 +2,63 @@
 #include <math.h>
 #include <string.h>
 
-void its(char* c,int k);
-void its(char* c,int k)
+int NofD(int j,int k);
+int NofD(int j,int k)
 {
-    int index = 0,sum = 0,temp = k,digits = 0;
+    int count = 0;
+    while (j != 0)
+    {
+        count++;
+        j = j/10;
+    }
+    while (k != 0)
+    {
+        count++;
+        k = k/10;
+    }
+    return count;
+}
+
+void its(char* c,int k,int j);
+void its(char* c,int k,int j)
+{
+    int index = 0,sum = 0,temp = k,digit1 = 0,digit2 = 0;
     while (temp != 0)
     {
         temp = temp / 10;
-        digits++;
+        digit1++;
     }
     temp = k;
     while (temp != 0)
     {
-        sum = sum + temp%10*pow(10,digits-index-1);
+        sum = sum + temp%10*pow(10,digit1-index-1);
         temp = temp/10;
         index++;
     }
     index = 0;
+    while (sum != 0)
+    {
+        *(c + index) = sum%10 + 48;
+        sum = sum/10;
+        index++;
+    }
+
+
+
+    temp = j;sum = 0;index = 0;
+    while (temp != 0)
+    {
+        temp = temp / 10;
+        digit2++;
+    }
+    temp = j;
+    while (temp != 0)
+    {
+        sum = sum + temp%10*pow(10,digit2-index-1);
+        temp = temp/10;
+        index++;
+    }
+    index = digit1;
     while (sum != 0)
     {
         *(c + index) = sum%10 + 48;
@@ -38,15 +78,13 @@ int arrange_lexicographically(char* string1,char* string2,int index)
    }
    else if (*(string1 + index) == '\0')
    {
-       *(string1 + index + 1 ) = '\0';
-       value = arrange_lexicographically(string1,string2,index+1);
+       return 0;
    }
    else if (*(string2 + index) == '\0')
    {
-       *(string2 + index + 1 ) = '\0';
-       value = arrange_lexicographically(string1,string2,index+1);
+       return 1;
    }
-   else
+   else if ((*(string1 + index) != '\0') && (*(string2 + index) != '\0'))
    {
        if (*(string1+index) > *(string2+index))
        {
@@ -66,9 +104,12 @@ int arrange_lexicographically(char* string1,char* string2,int index)
 
 int main()
 {
+    int ix = 0,iy = 0,flag = 0,count = 0;
     char str1[100];
     char str2[100];
-    char zero[3] = "00";
+    char* add1;char* add2;
+    add1 = &str1[0];
+    add2 = &str2[0];
     int T,i,index = 0;
     long int N,j,k;
     scanf("%d",&T);
@@ -76,40 +117,56 @@ int main()
     {
         j = 0;k = 0;index = 0;
         char* max;
+        char* temp;
         char* strlist[100];
-        strcpy(str1,zero);strcpy(str2,zero);
         scanf("%ld",&N);
 
-        for (j = 1; j<=(pow(N,0.5)); j++)
+        for (j = 1; j<=(int)(pow(N,0.5)); j++)
         {
-            for (k = 1; k<=(pow(N,0.5)); k++)
+            for (k = j; k<=(int)(pow(N,0.5)); k++)
             {
                 if (k*k == (N - j*j))
                 {
-                    its(&str1[0],j*10 + k);
-                    its(&str2[0],k*10 + j);
-                    *(strlist+index) = &str1[0];
+                    its(add1,j,k);
+                    its(add2,k,j);
+                    *(strlist+index) = add1;
                     index++;
-                    *(strlist+index) = &str2[0];
+                    *(strlist+index) = add2;
                     index++;
+                    flag = 1;
+                    add1 = add1 + NofD(j,k) + 1;
+                    add2 = add2 + NofD(k,j) + 1;
                 }
             }
         }
-        if ((strcmp(str1,zero) != 0) && (strcmp(str2,zero) != 0))
+        ix = 0;
+        while (ix < index)
+        {
+            temp = *(strlist + ix);
+            iy = 0;
+            while (*(temp + iy) != '\0')
+            {
+                printf("%c",*(temp + iy));
+                iy++;
+            }
+            ix++;
+            printf(" ");
+        }
+        printf("\n");
+        if (flag == 1)
         {
             *(strlist+index) = '\0';
-            k = 0;
-            while (k <= (index -2))
+            k = 1;
+            max = *(strlist + 0);
+            temp = *(strlist + 0);
+            while (k <= (index -1))
             {
-                if (arrange_lexicographically(*(strlist+k),*(strlist+k+1),0) == 0)
+                if (arrange_lexicographically(*(strlist+k),max,0) == 0)
                 {
-                    max = *(strlist+k);
-                }
-                else
-                {
-                    max = *(strlist+k+1);
+                    temp = *(strlist+k);
                 }
                 k++;
+                max = temp;
             }
             j = 0;
             while(*(max+j) != '\0')
